@@ -1,11 +1,7 @@
 # CHANGELOG — ระบบยืมหนังสือ (Library Borrowing System)
 
-> รูปแบบ: `[วันที่] เวอร์ชัน — หัวข้อ`  
-> ทุก entry เขียนด้วยคำของตัวเอง — ไม่ copy จาก AI โดยตรง
 
----
-
-## [2026-08-03] v1.0.0 — Initial Release
+## v1.0.0 — Initial Release
 
 ### เพิ่มใหม่ (Added)
 - `seed_data()` — โหลดข้อมูล 5 หนังสือ + 3 สมาชิกสำหรับ demo
@@ -44,47 +40,8 @@
 
 ---
 
-## [2026-08-03] v1.0.1 — Bug Fix & Testing
+## v1.0.1 — Bug Fix & Testing
 
 ### แก้ไข (Fixed)
 - `return_book()` — เพิ่มตรวจสอบ `isbn in members[member_id]["borrowed_books"]` ก่อน remove เพื่อป้องกัน ValueError
 - `my_loans()` — แก้ overdue check ให้ใช้ `date.fromisoformat()` แทนการ compare string โดยตรง
-
-### ทดสอบ (Tested)
-- Happy Path: borrow → return ทำงานถูกต้อง
-- Edge Cases: ISBN ไม่มี, สมาชิกไม่มี, ยืมซ้ำ, หนังสือหมด
-- Full Lifecycle: ยืมจนหมด → ยืมไม่ได้ → คืน → ยืมได้อีก
-- Overdue: simulate วันที่ผ่านมา 20 วัน → ค่าปรับ 30 บาท ถูกต้อง
-
-### สิ่งที่เรียนรู้จากการ test
-
-- Test ทำให้พบ bug ที่ไม่คิดว่าจะเกิด เช่น return_book() ที่เรียกซ้ำสองครั้งไม่ควรสำเร็จ
-- `expect_pass=False` ใน run_test() เป็น pattern ที่ดีสำหรับทดสอบ error cases
-- การ simulate วันที่ด้วยการแก้ไข dict ใน borrow_log โดยตรง ทำได้เพราะ Python dict เป็น mutable
-
----
-
-## [รอ] v1.1.0 — Persistence (File I/O)
-
-### วางแผนจะทำ
-- [ ] `save_db(filename)` — บันทึก books/members/borrow_log เป็น JSON
-- [ ] `load_db(filename)` — โหลดข้อมูลจากไฟล์เมื่อเริ่มโปรแกรม
-- [ ] เพิ่มเมนู `[S] Save` และ `[L] Load` ใน main_menu()
-- [ ] เพิ่ม `try/except FileNotFoundError` ใน load_db()
-
-### สาเหตุที่เลื่อนไปก่อน
-- ต้องเรียน file I/O และ `json` module ก่อน (Week 7)
-- ต้องคิดว่าจะ serialize `date` object อย่างไร (JSON ไม่รู้จัก datetime)
-
----
-
-## [รอ] v2.0.0 — OOP Refactor
-
-### วางแผนจะทำ
-- [ ] `class Library` — encapsulate books, members, borrow_log เป็น instance variables
-- [ ] `class Book` — data class พร้อม `__repr__` และ `is_available` property
-- [ ] `class Member` — data class พร้อม `can_borrow` property (ตรวจ quota)
-
-### เหตุผลที่จะ refactor
-- Global variables หลายตัว (`books`, `members`, `borrow_log`) จัดการยากเมื่อโปรแกรมใหญ่ขึ้น
-- OOP จะทำให้ `library.borrow("ISBN001", "M001")` อ่านง่ายกว่า `borrow_book("ISBN001", "M001")`
