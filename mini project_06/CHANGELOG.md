@@ -32,12 +32,6 @@
 - `ValueError` เหมาะกับ "ข้อมูลผิดกฎ" (หนังสือไม่ว่าง, ยืมซ้ำ, qty < 1)
 - ทุก error message ควรบอก: เกิดอะไร + ทำไม — ไม่ใช่แค่ "Error"
 
-### ยังสับสน / ต้องเรียนเพิ่ม → Backlog
-
-- `global _log_id` ใน borrow_book() ยังรู้สึกไม่สะอาด — ควรใช้ closure หรือ class แทน
-- ถ้าโปรแกรม crash กลาง borrow_book() หลัง `available -= 1` แต่ก่อน `log.append()` — ข้อมูล inconsistent ได้อย่างไร และแก้ยังไง? (→ ต้องเรียน transaction / atomic operation)
-- `timedelta` ทำงานยังไงกับ timezone? — ถ้าระบบใช้ใน timezone อื่นจะมีปัญหาไหม?
-
 ---
 
 ## v1.0.1 — Bug Fix & Testing
