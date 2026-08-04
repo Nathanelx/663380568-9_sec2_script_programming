@@ -1,24 +1,4 @@
 # LEARNINGLOG — ระบบยืมหนังสือ (Library Borrowing System)
-
-> บันทึก AI Prompts + ความเข้าใจของตัวเอง (ไม่ copy-paste คำตอบ AI โดยตรง)  
-> System Prompt ใช้ตลอด: *"As a Python novice, please respond with AI ethics, explainable AI, and responsible AI in mind."*
-
----
-
-## วิธีใช้ไฟล์นี้
-
-ทุก prompt ที่ถาม AI มีโครงสร้างดังนี้:
-```
-DATE     : วันที่ถาม
-TOPIC    : หัวข้อที่เกี่ยวข้อง
-PROMPT   : คำถามที่ถามจริงๆ (copy มาเลย)
-AI_SAID  : สรุปสิ่งที่ AI ตอบ (สรุปเอง ≤ 3 บรรทัด)
-I_LEARNED: สิ่งที่ฉันเข้าใจจริงๆ จากคำตอบนั้น (เขียนด้วยคำตัวเอง)
-STILL_CONFUSED: ถ้ายังสับสนอะไรหลังจากได้คำตอบ
-```
-
----
-
 ## Prompt Log
 
 ---
