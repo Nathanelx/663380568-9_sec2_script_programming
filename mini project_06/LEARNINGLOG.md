@@ -76,16 +76,6 @@
 | 4 | Test error cases สำคัญเท่า test happy path | Prompt #004 |
 | 5 | Append-only log = audit trail pattern | Prompt #005 |
 
-### Process Insights (เรียนรู้จากการทำงานกลุ่ม)
-
-| # | Insight |
-|---|---|
-| 6 | Prompt ที่ดีต้องมี: context + constraint + expected output |
-| 7 | แบ่งงานตาม function ทำให้ merge โค้ดง่ายกว่าแบ่งตามส่วน |
-| 8 | ทำ seed_data() ก่อนเสมอ — ทดสอบบน data จริงดีกว่า data ในหัว |
-
-
-
 ## Kanban Update (สุดท้าย)
 
 ```
