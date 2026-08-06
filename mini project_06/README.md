@@ -6,27 +6,27 @@
 
 ## Kanban Backlog Run
 
-| Concept | ใช้ใน Library System | ไฟล์/ฟังก์ชัน |
-|---|---|---|
-| `dict` + nested dict | เก็บ books, members แบบ key-value | `books = {}`, `members = {}` |
-| `list` | borrow_log แบบ append-only | `borrow_log = []` |
-| `f-string` + format spec `:<N>` | จัดคอลัมน์ให้ตรงกัน | `list_books()` |
-| `input()` + type conversion | รับค่าจากผู้ใช้ | `_ui_*()` ทุกตัว |
-| `if-elif-else` + logical operators | validation 4 ขั้นใน borrow | `borrow_book()` |
-| `for` loop + `while True` | เมนูหลัก + วน loop | `main_menu()` |
-| `break` + `continue` | ออกจาก loop / ข้ามรายการ | `main_menu()`, `list_books()` |
-| list methods `.append()` `.remove()` | เพิ่ม/ลบ ISBN ในรายการยืม | `borrowed_books` |
-| `dict.get(key, default)` | safe access ไม่ crash | `view_report()`, `my_loans()` |
-| `dict.items()` | วน loop key-value | `list_books()`, `view_report()` |
-| `def` + `return` + type hints | ทุก function มี signature ชัดเจน | ทุก function |
-| docstring | อธิบาย Args, Returns, Raises | ทุก function |
-| `try` / `except` / `raise` | จับและโยน KeyError, ValueError | `main_menu()` + core functions |
-| `next()` + generator expression | หา log entry แรกที่ตรงเงื่อนไข | `return_book()` |
-| `lambda` + `sorted()` | เรียงหนังสือยอดนิยม | `view_report()` |
-|Update| **`json.dump()` / `json.load()`** | **บันทึก/โหลด dict ↔ JSON file** | **`save_data()`, `load_data()`** |
-|Update| **`os.path.exists()`** | **ตรวจไฟล์มีอยู่ก่อน load** | **`load_data()`** |
-|Update| **`global` keyword** | **แก้ counter นอก function** | **`_book_id`, `_member_id`** |
-|Update| **Auto-increment ID** | **ISBN001, M001 อัตโนมัติ** | **`_ui_add_book()`, `_ui_register()`** |
+| state | Concept | ใช้ใน Library System | ไฟล์/ฟังก์ชัน |
+|---|---|---|---|
+|D1| `dict` + nested dict | เก็บ books, members แบบ key-value | `books = {}`, `members = {}` |
+|D1| `list` | borrow_log แบบ append-only | `borrow_log = []` |
+|D1| `f-string` + format spec `:<N>` | จัดคอลัมน์ให้ตรงกัน | `list_books()` |
+|D1| `input()` + type conversion | รับค่าจากผู้ใช้ | `_ui_*()` ทุกตัว |
+|D1| `if-elif-else` + logical operators | validation 4 ขั้นใน borrow | `borrow_book()` |
+|D2| `for` loop + `while True` | เมนูหลัก + วน loop | `main_menu()` |
+|D2| `break` + `continue` | ออกจาก loop / ข้ามรายการ | `main_menu()`, `list_books()` |
+|D2| list methods `.append()` `.remove()` | เพิ่ม/ลบ ISBN ในรายการยืม | `borrowed_books` |
+|D2| `dict.get(key, default)` | safe access ไม่ crash | `view_report()`, `my_loans()` |
+|D2| `dict.items()` | วน loop key-value | `list_books()`, `view_report()` |
+|D2| `def` + `return` + type hints | ทุก function มี signature ชัดเจน | ทุก function |
+|D2| docstring | อธิบาย Args, Returns, Raises | ทุก function |
+|D3| `try` / `except` / `raise` | จับและโยน KeyError, ValueError | `main_menu()` + core functions |
+|D3| `next()` + generator expression | หา log entry แรกที่ตรงเงื่อนไข | `return_book()` |
+|D3| `lambda` + `sorted()` | เรียงหนังสือยอดนิยม | `view_report()` |
+|เพิ่มเติ่มหลังพรี| **`json.dump()` / `json.load()`** | **บันทึก/โหลด dict ↔ JSON file** | **`save_data()`, `load_data()`** |
+|เพิ่มเติ่มหลังพรี| **`os.path.exists()`** | **ตรวจไฟล์มีอยู่ก่อน load** | **`load_data()`** |
+|เพิ่มเติ่มหลังพรี| **`global` keyword** | **แก้ counter นอก function** | **`_book_id`, `_member_id`** |
+|เพิ่มเติ่มหลังพรี| **Auto-increment ID** | **ISBN001, M001 อัตโนมัติ** | **`_ui_add_book()`, `_ui_register()`** |
 
 
 
