@@ -32,8 +32,6 @@
 
 ## Group Learning Outcomes
 
-### ด้าน Technical
-
 **1. Data Structure Selection**  
 เลือก `dict` สำหรับ books และ members เพราะค้นหาด้วย ISBN / member_id ได้เร็ว O(1) ไม่ต้องวนหาทั้งรายการแบบ list ที่ช้า O(n)
 
