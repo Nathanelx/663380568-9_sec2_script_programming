@@ -1,5 +1,4 @@
 # CHANGELOG — ระบบยืมหนังสือ
----
 
 ## v2.0.0 — File I/O + Auto-increment ID
 
