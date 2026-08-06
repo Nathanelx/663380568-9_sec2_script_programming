@@ -1,41 +1,114 @@
 # CHANGELOG — ระบบยืมหนังสือ (Library Borrowing System)
 
-
-## v1.0.0 — Initial Release
-
-### เพิ่มใหม่ (Added)
-- `seed_data()` — โหลดข้อมูล 5 หนังสือ + 3 สมาชิกสำหรับ demo
-- `add_book()` — upsert pattern: เพิ่มใหม่หรืออัปเดตจำนวน
-- `list_books()` — แสดงรายการพร้อม status ว่าง/ไม่ว่าง
-- `search_book()` — list comprehension กรองด้วย keyword
-- `register_member()` — ลงทะเบียนพร้อมตรวจ duplicate
-- `borrow_book()` — 4-layer validation ก่อน mutate data
-- `return_book()` — `next()` + generator หา active log + overdue fine
-- `my_loans()` — ดูรายการที่ยืมอยู่ตอนนี้
-- `view_report()` — สรุปสถิติ + top popular books
-- `main_menu()` — dispatcher dict pattern → functions
-
-### สิ่งที่เรียนรู้จากเวอร์ชันนี้
-
-**Data Design**
-- เลือก `dict` แทน `list` สำหรับ books และ members เพราะค้นหาด้วย ISBN/member_id ได้เร็ว O(1)
-- `borrow_log` เป็น append-only `list` เพราะประวัติไม่ควรลบ — เหมือน bank statement
-- `returned_date: None` แทนการลบ row ออก — "คืนหนังสือ" คือ update ไม่ใช่ delete
-
-**Functions**
-- Validate ก่อน mutate เสมอ — ถ้า validate ทีหลังและ error กลางทาง data จะเสียหายบางส่วน
-- UI functions (`_ui_*`) แยกจาก core logic ทำให้ test core ได้โดยไม่ต้องกด input
-- `next(generator, None)` ดีกว่า for loop + break เพราะอ่านง่ายและ Pythonic กว่า
-
-**Error Handling**
-- `KeyError` เหมาะกับ "ไม่พบ key" (isbn/member_id ไม่มีในระบบ)
-- `ValueError` เหมาะกับ "ข้อมูลผิดกฎ" (หนังสือไม่ว่าง, ยืมซ้ำ, qty < 1)
-- ทุก error message ควรบอก: เกิดอะไร + ทำไม — ไม่ใช่แค่ "Error"
+> เขียนด้วยคำของตัวเอง — ไม่ copy จาก AI โดยตรง
 
 ---
 
-## v1.0.1 — Bug Fix & Testing
+## [2026-08-04] v2.0.0 — File I/O + Auto-increment ID
 
-### แก้ไข (Fixed)
-- `return_book()` — เพิ่มตรวจสอบ `isbn in members[member_id]["borrowed_books"]` ก่อน remove เพื่อป้องกัน ValueError
-- `my_loans()` — แก้ overdue check ให้ใช้ `date.fromisoformat()` แทนการ compare string โดยตรง
+### เพิ่มใหม่ (Added)
+
+#### 1. ระบบบันทึกและโหลดข้อมูล (Data Persistence)
+```python
+DATA_FILE = "library_data.json"
+
+save_data()   # บันทึก books, members, borrow_log, IDs → JSON
+load_data()   # โหลดกลับมาเมื่อเปิดโปรแกรมใหม่
+```
+**ทำไมถึงเพิ่ม**: v1.0 ข้อมูลหายทุกครั้งที่ปิดโปรแกรม — ไม่ใช้งานได้จริง
+
+**สิ่งที่เรียนรู้**:
+- `json.dump(data, f, ensure_ascii=False, indent=4)` — บันทึก dict/list เป็น JSON อ่านได้
+- `json.load(f)` — โหลด JSON กลับเป็น dict/list ได้เลย ไม่ต้องแปลงเอง
+- `os.path.exists(filename)` — ตรวจก่อนเปิดไฟล์ ป้องกัน FileNotFoundError
+- `data.get("books", {})` — ถ้า key ไม่มีใน JSON คืน default แทน crash
+
+#### 2. Auto-increment ID
+```python
+_book_id   = 0   # นับลำดับหนังสือ
+_member_id = 0   # นับลำดับสมาชิก
+```
+- ISBN สร้างอัตโนมัติ: `f"ISBN{_book_id:03d}"` → ISBN001, ISBN002, ...
+- Member ID อัตโนมัติ: `f"M{_member_id:03d}"` → M001, M002, ...
+
+**สิ่งที่เรียนรู้**:
+- `:03d` ใน f-string = จำนวนเต็ม จอง 3 หลัก เติม 0 นำหน้า
+- `global _book_id` ใน _ui_add_book() — ต้องประกาศ global เพื่อแก้ค่านอก function
+
+#### 3. ปรับ main_menu()
+```python
+def main_menu():
+    load_data()   # โหลดข้อมูลทันทีที่เปิดโปรแกรม
+    ...
+    if choice == "0":
+        save_data()   # บันทึกก่อนออก
+        break
+```
+
+#### 4. ลบ seed_data()
+เพราะตอนนี้โหลดจาก `library_data.json` แทน — ไม่ต้องใส่ข้อมูลจำลองอีกต่อไป
+
+---
+
+### เปลี่ยนแปลง (Changed)
+
+| ฟังก์ชัน | v1.0 | v2.0 |
+|---|---|---|
+| `_ui_add_book()` | รับ ISBN จากผู้ใช้ | สร้าง ISBN อัตโนมัติ |
+| `_ui_register()` | รับ member_id จากผู้ใช้ | สร้าง M_ID อัตโนมัติ |
+| `main_menu()` | แค่วน loop | เรียก load_data() ต้น + save_data() ก่อนออก |
+
+### ลบออก (Removed)
+
+- `seed_data()` — ไม่ต้องการแล้ว เพราะมี load_data() แทน
+
+---
+
+### สิ่งที่เรียนรู้จาก v2.0
+
+**File I/O Pattern**
+```
+เปิดโปรแกรม → load_data() → ใช้งาน → save_data() → ปิดโปรแกรม
+```
+Pattern นี้เหมือนทุก app จริง — SQLite, mobile app, game save file ทำแบบเดียวกัน
+
+**ทำไม save ตอนออกเท่านั้น ไม่ save ทุก action?**
+ถ้า save ทุก action = เขียนไฟล์บ่อยมาก ช้า และเสี่ยงไฟล์เสียถ้า crash กลางทาง
+→ ในระบบจริงจะใช้ database transaction แทน แต่สำหรับโปรเจกต์นี้ save ตอนออกพอ
+
+**global variable กับ counter**
+`global _book_id` ไม่ ideal แต่เหมาะกับ procedural style ของโปรเจกต์นี้
+→ ถ้า refactor เป็น OOP จะกลายเป็น `self._book_id` แทน ไม่ต้องใช้ global
+
+---
+
+### ยังสับสน / Backlog ถัดไป
+
+- ถ้าโปรแกรม crash ระหว่าง session ข้อมูลที่ยังไม่ได้ save จะหาย — แก้ยังไง?
+- JSON ไม่รู้จัก Python `date` object ทำไม `str(date.today())` ถึงใช้ได้? (เพราะแปลงเป็น string ก่อน)
+- OOP: ถ้าเปลี่ยน `_book_id` เป็น `self._book_id` ใน class Library จะต้องแก้อะไรอีก?
+
+---
+
+## [2026-08-03] v1.0.1 — Bug Fix
+
+- แก้ `return_book()`: เพิ่มตรวจ `isbn in borrowed_books` ก่อน `.remove()`
+- แก้ overdue check ใช้ `date.fromisoformat()` แทน string compare
+
+## [2026-08-03] v1.0.0 — Initial Release
+
+### เพิ่มใหม่
+- `add_book()`, `list_books()`, `search_book()`
+- `register_member()`, `list_members()`
+- `borrow_book()` — 4-layer validation
+- `return_book()` — next() + generator + overdue fine
+- `my_loans()`, `view_report()`
+- `main_menu()` — dispatcher dict pattern
+- `seed_data()` — ข้อมูลจำลอง 5 หนังสือ 3 สมาชิก
+
+### สิ่งที่เรียนรู้
+- dict ซ้อน dict = pattern เดียวกับ JSON API
+- borrow_log append-only = audit trail
+- validate ก่อน mutate เสมอ
+- next(generator, None) หา item แรก — Pythonic กว่า for+break
+- UI แยกจาก core → core test ง่าย
