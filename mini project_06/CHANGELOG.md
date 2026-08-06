@@ -4,7 +4,7 @@
 
 ---
 
-## [2026-08-04] v2.0.0 — File I/O + Auto-increment ID
+## v2.0.0 — File I/O + Auto-increment ID
 
 ### เพิ่มใหม่ (Added)
 
@@ -82,20 +82,12 @@ Pattern นี้เหมือนทุก app จริง — SQLite, mobile
 
 ---
 
-### ยังสับสน / Backlog ถัดไป
-
-- ถ้าโปรแกรม crash ระหว่าง session ข้อมูลที่ยังไม่ได้ save จะหาย — แก้ยังไง?
-- JSON ไม่รู้จัก Python `date` object ทำไม `str(date.today())` ถึงใช้ได้? (เพราะแปลงเป็น string ก่อน)
-- OOP: ถ้าเปลี่ยน `_book_id` เป็น `self._book_id` ใน class Library จะต้องแก้อะไรอีก?
-
----
-
-## [2026-08-03] v1.0.1 — Bug Fix
+## v1.0.1 — Bug Fix
 
 - แก้ `return_book()`: เพิ่มตรวจ `isbn in borrowed_books` ก่อน `.remove()`
 - แก้ overdue check ใช้ `date.fromisoformat()` แทน string compare
 
-## [2026-08-03] v1.0.0 — Initial Release
+## v1.0.0 — Initial Release
 
 ### เพิ่มใหม่
 - `add_book()`, `list_books()`, `search_book()`
