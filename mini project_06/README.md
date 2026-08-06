@@ -23,10 +23,10 @@
 |D3| `try` / `except` / `raise` | จับและโยน KeyError, ValueError | `main_menu()` + core functions |
 |D3| `next()` + generator expression | หา log entry แรกที่ตรงเงื่อนไข | `return_book()` |
 |D3| `lambda` + `sorted()` | เรียงหนังสือยอดนิยม | `view_report()` |
-|เพิ่มเติ่มหลังพรี| **`json.dump()` / `json.load()`** | **บันทึก/โหลด dict ↔ JSON file** | **`save_data()`, `load_data()`** |
-|เพิ่มเติ่มหลังพรี| **`os.path.exists()`** | **ตรวจไฟล์มีอยู่ก่อน load** | **`load_data()`** |
-|เพิ่มเติ่มหลังพรี| **`global` keyword** | **แก้ counter นอก function** | **`_book_id`, `_member_id`** |
-|เพิ่มเติ่มหลังพรี| **Auto-increment ID** | **ISBN001, M001 อัตโนมัติ** | **`_ui_add_book()`, `_ui_register()`** |
+|เพิ่มเติมหลังพรี| **`json.dump()` / `json.load()`** | **บันทึก/โหลด dict ↔ JSON file** | **`save_data()`, `load_data()`** |
+|เพิ่มเติมหลังพรี| **`os.path.exists()`** | **ตรวจไฟล์มีอยู่ก่อน load** | **`load_data()`** |
+|เพิ่มเติมหลังพรี| **`global` keyword** | **แก้ counter นอก function** | **`_book_id`, `_member_id`** |
+|เพิ่มเติมหลังพรี| **Auto-increment ID** | **ISBN001, M001 อัตโนมัติ** | **`_ui_add_book()`, `_ui_register()`** |
 
 
 
