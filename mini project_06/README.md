@@ -30,9 +30,9 @@
 
 ## Group Learning Outcomes
 
-## group grading rubric
+## Group grading rubric
 
-### group assessments
+## Group assessments
 
 |ผู้ประเมิน|ประเมิน ธนภัทร|ประเมิน ยศพล|ประเมิน ศุภชัย|ประเมิน ภาวัต |
 |---|---|---|---|---|
