@@ -1,7 +1,4 @@
-# CHANGELOG — ระบบยืมหนังสือ (Library Borrowing System)
-
-> เขียนด้วยคำของตัวเอง — ไม่ copy จาก AI โดยตรง
-
+# CHANGELOG — ระบบยืมหนังสือ
 ---
 
 ## v2.0.0 — File I/O + Auto-increment ID
