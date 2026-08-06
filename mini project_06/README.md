@@ -4,7 +4,7 @@
 
 ระบบยืม-คืนหนังสือ command-line application จำลองการทำงานของห้องสมุดขนาดเล็ก  
 
-## 1. Kanban Backlog Run
+## Kanban Backlog Run
 
 | Concept | ใช้ใน Library System | ไฟล์/ฟังก์ชัน |
 |---|---|---|
@@ -28,24 +28,9 @@
 |Update| **`global` keyword** | **แก้ counter นอก function** | **`_book_id`, `_member_id`** |
 |Update| **Auto-increment ID** | **ISBN001, M001 อัตโนมัติ** | **`_ui_add_book()`, `_ui_register()`** |
 
-### 🔄 In Progress (WIP ≤ 2)
-- เตรียมนำเสนอ 10-15 นาที
-- ทำ GitHub artifacts ครบชุด
 
-### 📋 Backlog — Feature ที่วางแผนจะทำต่อ
 
-| Priority | Feature | เหตุผล |
-|---|---|---|
-| สูง | OOP refactor: `class Library`, `class Book`, `class Member` | แก้ปัญหา global variable, code อ่านง่ายขึ้น |
-| สูง | `with open()` ใน save/load | ปลอดภัยกว่า ปิดไฟล์อัตโนมัติ |
-| กลาง | ระบบจองหนังสือเมื่อหนังสือไม่ว่าง | user experience ดีขึ้น |
-| กลาง | Pandas: วิเคราะห์ borrow_log เป็น DataFrame | สถิติการยืมรายเดือน |
-| ต่ำ | Flask: web API | เปลี่ยนจาก CLI เป็น web |
-| ต่ำ | SQLite: แทน JSON file | รองรับข้อมูลขนาดใหญ่ |
-
----
-
-## 2. Group Learning Outcomes
+## Group Learning Outcomes
 
 หลังจากทำโปรเจกต์นี้ครบทั้ง v1.0 และ v2.0 กลุ่มของเราเรียนรู้ว่า:
 
@@ -56,12 +41,12 @@
 
 ---
 
+## group grading rubric
 
-### Peer Assessment — สมาชิกในกลุ่มประเมินกัน
+### group assessments
 
-| ประเมินโดย ↓ / ประเมิน → | [ชื่อ 1] | [ชื่อ 2] | [ชื่อ 3] |
-|---|---|---|---|
-| [ชื่อ 1] | — | [x/10] | [x/10] |
-| [ชื่อ 2] | [x/10] | — | [x/10] |
-| [ชื่อ 3] | [x/10] | [x/10] | — |
-
+|ผู้ประเมิน|ประเมิน ธนภัทร|ประเมิน ยศพล|ประเมิน ศุภชัย|ประเมิน ภาวัต |
+|นายธนภัทร สมบูรณ์|10|10|10|10|
+|นายยศพล ถิรพงศ์ชาติ|10|10|10|10|
+|นายศุภชัย คนเพียร|10|10|10|10|
+|นายภาวัต วงศ์มาลาสิทธิ์|10|10|10|10|
