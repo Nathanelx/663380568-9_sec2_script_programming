@@ -1,6 +1,6 @@
 # Week 12: Final Project — Enhanced Task Manager CLI
 
-**ผู้จัดทำ:** ชื่อ-นามสกุล ______________________ **รหัสนักศึกษา:** 663380568-9
+**ผู้จัดทำ:** ชื่อ-นามสกุล นายศพล ถิรพงศ์ชาติ**รหัสนักศึกษา:** 663380568-9
 
 โครงงานปลายภาค: Task Manager แบบ Command-Line ฉบับสมบูรณ์ ต่อยอดจากการวางแผนใน Week 11
 รวมทุกเรื่องที่เรียนมา: **OOP (Inheritance / Polymorphism)**, **Modular Design**, **JSON Persistence**, **datetime**,
