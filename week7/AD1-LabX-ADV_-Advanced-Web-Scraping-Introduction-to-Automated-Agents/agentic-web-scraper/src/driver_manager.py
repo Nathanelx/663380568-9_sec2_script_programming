@@ -1,0 +1,49 @@
+# agentic-web-scraper/src/driver_manager.py
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+
+USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+
+class DriverManager:
+    """สร้างและปิด Selenium WebDriver (รองรับ Chrome และ Firefox)"""
+
+    def __init__(self, browser_type: str = "chrome", headless: bool = True):
+        self.browser_type = browser_type.lower()
+        self.headless = headless
+        self.driver = None
+
+    def get_driver(self):
+        if self.browser_type == "chrome":
+            options = webdriver.ChromeOptions()
+            if self.headless:
+                options.add_argument("--headless=new")   # รันแบบไม่เปิดหน้าต่างเบราว์เซอร์
+            options.add_argument("--disable-gpu")
+            options.add_argument("--no-sandbox")
+            options.add_argument(f"user-agent={USER_AGENT}")  # User-Agent spoofing
+
+            service = ChromeService(ChromeDriverManager().install())
+            self.driver = webdriver.Chrome(service=service, options=options)
+
+        elif self.browser_type == "firefox":
+            options = webdriver.FirefoxOptions()
+            if self.headless:
+                options.add_argument("--headless")
+
+            service = FirefoxService(GeckoDriverManager().install())
+            self.driver = webdriver.Firefox(service=service, options=options)
+
+        else:
+            raise ValueError(f"Unsupported browser type: {self.browser_type}")
+
+        self.driver.implicitly_wait(10)   # implicit wait สำหรับการหา element
+        return self.driver
+
+    def close_driver(self):
+        if self.driver:
+            self.driver.quit()
+            self.driver = None
